@@ -1,0 +1,84 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white">CARGANDO</p>
+</ngx-spinner>
+
+<div >    
+    <div class="consulta-empresas">Creación de Empresas</div>
+    <hr />    
+    <div class="row">
+        <section class="col col-12">
+            <span class="consulta-empresas">Datos de la Empresa</span>
+        </section>
+    </div>
+    <div class="form-group">             
+        
+        <div class="buttonContainer pt-4">            
+            <button class="saveButton cursor" (click)="clickConsultar()">Consutar Empresas</button>           
+        </div> 
+        <section id="nuevaEmpresa" style="margin-bottom: 5%;">
+            <div class="container-fluid todo">
+                <form [formGroup]="empresaForm" (ngSubmit)="save()">
+                    <div class="productForm d-md-flex">
+                        <div class="form-group">
+                            <div class="inputContainer">
+                                <input type="text" formControlName="nombreEmpresa" class="input"
+                                    [class.is-invalid]="nombreEmpresaNoValid"  maxlength="50" placeholder="NOMBRE EMPRESA" autocomplete>
+                            </div>
+                            <small *ngIf="nombreEmpresaNoValid" class="text-danger">Nombre empresa requerido</small>
+                        </div>
+        
+                        <div class="form-group">
+                            <div class="inputContainer">
+                                <input type="text" formControlName="tipoIdentificacion" class="input"
+                                    placeholder="TIPO IDENTIFIACIÓN">
+                            </div>
+                        </div>
+        
+                        <div class="form-group">
+                            <div class="inputContainer">
+                                <input type="text" formControlName="numIdentificacion" class="input" [class.is-invalid]="numeroIdentifiNoValid"
+                                    placeholder="NUMERO IDENTIFICACIÓN">    
+                            
+                            </div>
+                            <small *ngIf="numeroIdentifiNoValid" class="text-danger">Numero identificación requerido</small>
+                        </div>                        
+        
+                        <div class="form-group">
+                            <div class="inputContainer">
+                                <input type="text" formControlName="direccion" class="input"
+                                    placeholder="DIRECCIÓN">
+                            </div>
+                        </div>
+        
+                        <div class="form-group">
+                            <div class="inputContainer">
+                                <input type="text" formControlName="ciudad" class="input" placeholder="CIUDAD">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="inputContainer">
+                                <input type="text" formControlName="departamento" class="input" placeholder="DEPARTAMENTO">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="inputContainer">
+                                <input type="text" formControlName="pais" class="input" placeholder="PAÍS">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="inputContainer">
+                                <input type="number" formControlName="telefono" class="input" placeholder="TELÉFONO">
+                            </div>
+                        </div>   
+                        <div class="buttonContainer pt-4">
+                            <button type="submit" class="saveButton cursor">Agregar Empresa </button>
+                        </div>                              
+                    </div>                   
+                </form>
+            </div>
+        </section>       
+    </div>
+</div>
