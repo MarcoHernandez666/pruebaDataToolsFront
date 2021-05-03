@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import {RutasModule} from "./empresa/rutas/rutas.module";
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
     NgxSpinnerModule,
     BrowserAnimationsModule,
     RouterModule,
-    RutasModule
+    RutasModule,
+    NgbAlertModule
     
   ],
   providers: [],

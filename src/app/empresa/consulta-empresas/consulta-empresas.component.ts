@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmpresasService } from 'src/app/servicios/empresas.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Alert } from '../../alert/alert';
 
 @Component({
   selector: 'app-consulta-empresas',
@@ -15,6 +16,7 @@ export class ConsultaEmpresasComponent implements OnInit {
   constructor(    
     private empresaService: EmpresasService,
     private spinner: NgxSpinnerService,
+    private alertMessage: Alert
   ) { }
 
   ngOnInit(): void {
@@ -24,19 +26,17 @@ export class ConsultaEmpresasComponent implements OnInit {
   public consultarEmpresas():void {
     this.empresaService.consultarEmpresas()
     .subscribe(data => {
-      this.empresas = data.data;
-      console.log('data', data.data);
+      this.empresas = data.data;     
       if (data.success == 'true') {
         this.spinner.hide();
-        // this.alertMessage.alert('  Product created successfully');
-        // this.addNewProductForm();    
+        this.alertMessage.alert(data.message);        
       } else {
         this.spinner.hide();
-        // this.alertMessage.alert('  Error while creating a product');
+        this.alertMessage.alert(data.message);
       }
     }, (err) => {
       this.spinner.hide();
-      // this.alertMessage.alert('  Error while creating a product');
+      this.alertMessage.alert(err.message);
 
     });  
   }
