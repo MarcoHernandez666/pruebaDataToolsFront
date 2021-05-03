@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { EmpresaDto } from 'src/app/modelos/empresa.model';
 import { EmpresasService } from 'src/app/servicios/empresas.service';
-// import { Alert } from '../alert/alert';
+import { Alert } from '../../alert/alert';
 
 
 @Component({
@@ -20,6 +20,7 @@ export class CrearEmpresaComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private empresaService: EmpresasService,
     private router: Router,
+    private alertMessage: Alert
   ) { }
 
   public empresaForm: FormGroup;
@@ -31,14 +32,14 @@ export class CrearEmpresaComponent implements OnInit {
 
   public crearEmpresaForm(): void {
     this.empresaForm = this.builder.group({
-      nombreEmpresa: ['', [Validators.required, Validators.pattern('([A-Za-z0-9ñÑáéíóúÁÉÍÓÚ])(.+)?'), Validators.maxLength(50)]],
-      tipoIdentificacion: ['', [Validators.required, Validators.minLength(20)]],
+      nombreEmpresa: ['', [Validators.required]],
+      tipoIdentificacion: ['', [Validators.required]],
       numIdentificacion: ['', [Validators.required]],
       direccion: [''],
       ciudad: [''],
-      departamento: ['', [Validators.required]],
+      departamento: ['',],
       pais: [''],
-      telefono: ['', [Validators.max(100), Validators.min(0), Validators.pattern('([0-9]){1,3}')]],    
+      telefono: [''],    
 
     });
   }
@@ -51,17 +52,24 @@ export class CrearEmpresaComponent implements OnInit {
     return this.empresaForm.get('numIdentificacion').invalid && this.empresaForm.get('numIdentificacion').touched;
   }
 
-  public save(): void {
-    console.log('ingresa a save');
+  get tipoIdentifiNoValid(): boolean {
+    return this.empresaForm.get('tipoIdentificacion').invalid && this.empresaForm.get('tipoIdentificacion').touched;
+  }
+
+  get telNoValid(): boolean {
+    return this.empresaForm.get('telefono').invalid && this.empresaForm.get('telefono').touched;
+  }
+
+
+  public save(): void {    
     this.spinner.show();    
-    // if (this.empresaForm.invalid) {
-    //   this.spinner.hide();
-    //   // this.alertMessage.alert('Por favor complete los campos correctamente');
-    //   return (Object as any).values(this.empresaForm.controls).forEach(control => {
-    //     control.markAllAsTouched();
-    //   });
-    // }
-    console.log('ingresa a save');
+    if (this.empresaForm.invalid) {
+      this.spinner.hide();
+      this.alertMessage.alert('Por favor complete los campos correctamente');
+      return (Object as any).values(this.empresaForm.controls).forEach(control => {
+        control.markAllAsTouched();
+      });
+    }    
     const nombreEmpresa = this.empresaForm.get('nombreEmpresa').value;       
     this.empresa = {
       empresa : {
@@ -74,22 +82,21 @@ export class CrearEmpresaComponent implements OnInit {
       pais: this.empresaForm.get('pais').value,
       tel: this.empresaForm.get('telefono').value
     }
-    }
-        
-    console.log('this.empresa',this.empresa);
+    }       
+    
       this.empresaService.agregarEmpresa(this.empresa)
         .subscribe(data => {
           if (data.success == 'true') {
             this.spinner.hide();
-            // this.alertMessage.alert('  Product created successfully');
+            this.alertMessage.alert(data.message);
             this.empresaForm.reset();   
           } else {
             this.spinner.hide();
-            // this.alertMessage.alert('  Error while creating a product');
+            this.alertMessage.alert(data.message);
           }
         }, (err) => {
           this.spinner.hide();
-          // this.alertMessage.alert('  Error while creating a product');
+          this.alertMessage.alert(err.message);
 
         });  
 

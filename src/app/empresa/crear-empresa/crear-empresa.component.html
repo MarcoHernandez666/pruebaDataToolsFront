@@ -1,5 +1,5 @@
 <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
-    <p style="font-size: 20px; color: white">CARGANDO</p>
+    <p style="font-size: 20px; color: rgb(226, 202, 20)">CARGANDO</p>
 </ngx-spinner>
 
 <div >    
@@ -22,16 +22,17 @@
                         <div class="form-group">
                             <div class="inputContainer">
                                 <input type="text" formControlName="nombreEmpresa" class="input"
-                                    [class.is-invalid]="nombreEmpresaNoValid"  maxlength="50" placeholder="NOMBRE EMPRESA" autocomplete>
+                                    [class.is-invalid]="nombreEmpresaNoValid"   placeholder="NOMBRE EMPRESA">
                             </div>
-                            <small *ngIf="nombreEmpresaNoValid" class="text-danger">Nombre empresa requerido</small>
+                            <small *ngIf="nombreEmpresaNoValid" class="invalidInput">Nombre empresa requerido</small>
                         </div>
         
                         <div class="form-group">
                             <div class="inputContainer">
-                                <input type="text" formControlName="tipoIdentificacion" class="input"
+                                <input type="text" formControlName="tipoIdentificacion" class="input" [class.is-invalid]="tipoIdentifiNoValid"
                                     placeholder="TIPO IDENTIFIACIÓN">
                             </div>
+                            <small *ngIf="tipoIdentifiNoValid" class="invalidInput">Tipo identificación requerido</small>
                         </div>
         
                         <div class="form-group">
@@ -40,7 +41,7 @@
                                     placeholder="NUMERO IDENTIFICACIÓN">    
                             
                             </div>
-                            <small *ngIf="numeroIdentifiNoValid" class="text-danger">Numero identificación requerido</small>
+                            <small *ngIf="numeroIdentifiNoValid" class="invalidInput">Numero identificación requerido</small>
                         </div>                        
         
                         <div class="form-group">
@@ -70,8 +71,9 @@
 
                         <div class="form-group">
                             <div class="inputContainer">
-                                <input type="number" formControlName="telefono" class="input" placeholder="TELÉFONO">
+                                <input type="number" formControlName="telefono" class="input" placeholder="TELÉFONO" [class.is-invalid]="telNoValid">
                             </div>
+                            <small *ngIf="telNoValid" class="invalidInput">Teléfono requerido</small>
                         </div>   
                         <div class="buttonContainer pt-4">
                             <button type="submit" class="saveButton cursor">Agregar Empresa </button>
